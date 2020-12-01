@@ -30,6 +30,7 @@
 
 ```bash
 pip install -r
+pre-commit install
 ```
 
 ## Usage
@@ -39,8 +40,6 @@ $ python3 -i day01.py
 >>> part1()
 >>> part2()
 ```
-
-TBD
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
