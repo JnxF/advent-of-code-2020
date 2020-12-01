@@ -28,9 +28,17 @@
 
 ## Installation
 
-TBD 
+```bash
+pip install -r
+```
 
 ## Usage
+
+```
+$ python3 -i day01.py
+>>> part1()
+>>> part2()
+```
 
 TBD
 

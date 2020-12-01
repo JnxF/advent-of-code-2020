@@ -13,7 +13,7 @@ def part1():
         for (j, v2) in enumerate(lines):
             if i != j and v1 + v2 == 2020:
                 submit(v1 * v2)
-                exit()
+                return
 
 
 def part2():
@@ -23,4 +23,4 @@ def part2():
             for (k, v3) in enumerate(lines):
                 if i != j != k and v1 + v2 + v3 == 2020:
                     submit(v1 * v2 * v3)
-                    exit()
+                    return
