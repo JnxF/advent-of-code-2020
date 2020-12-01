@@ -1,5 +1,6 @@
 from aocd.models import Puzzle
-from aocd import submit
+
+# from aocd import submit
 
 day = 1
 year = 2020
@@ -12,8 +13,7 @@ def part1():
     for (i, v1) in enumerate(lines):
         for (j, v2) in enumerate(lines):
             if i != j and v1 + v2 == 2020:
-                submit(v1 * v2)
-                return
+                return v1 * v2
 
 
 def part2():
@@ -22,5 +22,4 @@ def part2():
         for (j, v2) in enumerate(lines):
             for (k, v3) in enumerate(lines):
                 if i != j != k and v1 + v2 + v3 == 2020:
-                    submit(v1 * v2 * v3)
-                    return
+                    return v1 * v2 * v3
