@@ -5,7 +5,7 @@ from aocd.models import Puzzle
 input: str = Puzzle(day=2, year=2020).input_data.splitlines()
 
 
-def prettyLine(line):
+def parseLine(line):
     lineSplitted = line.split(":")
     indexesAndLetter = lineSplitted[0].split(" ")
     password = lineSplitted[1].strip()
@@ -21,7 +21,7 @@ def part1():
         (idx0, idx1, letter, password) = line
         return idx0 <= password.count(letter) <= idx1
 
-    lines = [prettyLine(line) for line in input]
+    lines = [parseLine(line) for line in input]
     return len(list(filter(validate1, lines)))
 
 
@@ -33,5 +33,5 @@ def part2():
         # p1 xor p2
         return p1 != p2
 
-    lines = [prettyLine(line) for line in input]
+    lines = [parseLine(line) for line in input]
     return len(list(filter(validate2, lines)))
