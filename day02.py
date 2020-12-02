@@ -22,7 +22,7 @@ def part1():
         return idx0 <= password.count(letter) <= idx1
 
     lines = [parseLine(line) for line in input]
-    return len(list(filter(validate1, lines)))
+    return len([line for line in lines if validate1(line)])
 
 
 def part2():
@@ -34,4 +34,4 @@ def part2():
         return p1 != p2
 
     lines = [parseLine(line) for line in input]
-    return len(list(filter(validate2, lines)))
+    return len([line for line in lines if validate2(line)])
