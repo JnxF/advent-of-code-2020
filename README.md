@@ -11,7 +11,7 @@
 | Day | Part a             | Part b             | Day | Part a | Part b |
 | --- | ------------------ | ------------------ | --- | ------ | ------ |
 | 1   | :white_check_mark: | :white_check_mark: | 14  |        |        |
-| 2   |                    |                    | 15  |        |        |
+| 2   | :white_check_mark: | :white_check_mark: | 15  |        |        |
 | 3   |                    |                    | 16  |        |        |
 | 4   |                    |                    | 17  |        |        |
 | 5   |                    |                    | 18  |        |        |
