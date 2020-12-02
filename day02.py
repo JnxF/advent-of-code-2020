@@ -29,6 +29,7 @@ def part2():
         (n0, n1, let, s) = line
         p1 = s[n0 - 1] == let
         p2 = s[n1 - 1] == let
+        # p1 xor p2
         return p1 != p2
 
     lines = [prettyLine(line) for line in input]
