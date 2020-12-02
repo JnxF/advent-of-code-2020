@@ -2,10 +2,7 @@ from aocd.models import Puzzle
 
 # from aocd import submit
 
-day = 1
-year = 2020
-
-input: str = Puzzle(year, day).input_data
+input: str = Puzzle(day=1, year=2020).input_data
 
 
 def part1():
