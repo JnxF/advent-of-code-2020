@@ -27,10 +27,8 @@ def part1():
 def part2():
     def validate2(line):
         (n0, n1, let, s) = line
-        n0 -= 1
-        n1 -= 1
-        p1 = s[n0] == let
-        p2 = s[n1] == let
+        p1 = s[n0 - 1] == let
+        p2 = s[n1 - 1] == let
         return p1 != p2
 
     lines = [prettyLine(line) for line in input]
