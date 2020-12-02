@@ -34,10 +34,12 @@ pre-commit install
 
 ## Usage
 
-```
+```bash
 $ python3 -i day01.py
 >>> part1()
 >>> part2()
+>>> from aocd import submit
+>>> submit(part2())
 ```
 
 ## License
