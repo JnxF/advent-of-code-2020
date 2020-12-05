@@ -2,16 +2,13 @@ from aocd.models import Puzzle
 
 # from aocd import submit
 
-input: str = Puzzle(day=5, year=2020).input_data.splitlines()
+inputInBinary: str = (
+    Puzzle(day=5, year=2020)
+    .input_data.translate("".maketrans("FBLR", "0101"))
+    .splitlines()
+)
 
-
-def computeId(code):
-    binaryCode = code.replace("F", "0").replace("B", "1")
-    binaryCode = binaryCode.replace("L", "0").replace("R", "1")
-    return int(binaryCode, 2)
-
-
-seatsIds = set(map(computeId, input))
+seatsIds = set(map(lambda code: int(code, 2), inputInBinary))
 
 
 def part1():
