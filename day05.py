@@ -6,12 +6,12 @@ input: str = Puzzle(day=5, year=2020).input_data.splitlines()
 
 
 def computeId(code):
-    row = int(code[:7].replace("F", "0").replace("B", "1"), 2)
-    column = int(code[7:].replace("L", "0").replace("R", "1"), 2)
-    return row * 8 + column
+    binaryCode = code.replace("F", "0").replace("B", "1")
+    binaryCode = binaryCode.replace("L", "0").replace("R", "1")
+    return int(binaryCode, 2)
 
 
-seatsIds = set([computeId(seat) for seat in input])
+seatsIds = set(map(computeId, input))
 
 
 def part1():
