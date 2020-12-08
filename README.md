@@ -8,7 +8,7 @@
 [![GitHub license](http://img.shields.io/github/license/JnxF/advent-of-code-2020.svg)](https://github.com/JnxF/advent-of-code-2020/blob/master/LICENSE)
 
 ## Status
-| Day | Part a             | Part b             | Day | Part a | Part b |
+| Day | Part 1             | Part 2             | Day | Part 1 | Part 2 |
 | --- | ------------------ | ------------------ | --- | ------ | ------ |
 | 1   | :white_check_mark: | :white_check_mark: | 14  |        |        |
 | 2   | :white_check_mark: | :white_check_mark: | 15  |        |        |
