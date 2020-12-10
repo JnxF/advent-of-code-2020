@@ -29,7 +29,6 @@
 
 ```bash
 pip install -r
-pre-commit install
 ```
 
 ## Usage
