@@ -22,7 +22,7 @@
 | 10  | :white_check_mark: |                    | 23  |        |        |
 | 11  | :white_check_mark: |                    | 24  |        |        |
 | 12  | :white_check_mark: | :white_check_mark: | 25  |        |        |
-| 13  |                    |                    |     |        |        |
+| 13  | :white_check_mark: |                    |     |        |        |
 
 
 ## Installation
