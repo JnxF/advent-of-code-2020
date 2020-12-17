@@ -16,7 +16,7 @@
 | 4   | :white_check_mark: |                    | 17  |                    |                    |
 | 5   | :white_check_mark: | :white_check_mark: | 18  |                    |                    |
 | 6   | :white_check_mark: | :white_check_mark: | 19  |                    |                    |
-| 7   |                    |                    | 20  |                    |                    |
+| 7   | :white_check_mark: | :white_check_mark: | 20  |                    |                    |
 | 8   | :white_check_mark: | :white_check_mark: | 21  |                    |                    |
 | 9   | :white_check_mark: | :white_check_mark: | 22  |                    |                    |
 | 10  | :white_check_mark: |                    | 23  |                    |                    |
