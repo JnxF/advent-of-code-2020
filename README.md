@@ -8,21 +8,21 @@
 [![GitHub license](http://img.shields.io/github/license/JnxF/advent-of-code-2020.svg)](https://github.com/JnxF/advent-of-code-2020/blob/master/LICENSE)
 
 ## Status
-| Day | Part 1             | Part 2             | Day | Part 1 | Part 2 |
-| --- | ------------------ | ------------------ | --- | ------ | ------ |
-| 1   | :white_check_mark: | :white_check_mark: | 14  |        |        |
-| 2   | :white_check_mark: | :white_check_mark: | 15  |        |        |
-| 3   | :white_check_mark: | :white_check_mark: | 16  |        |        |
-| 4   | :white_check_mark: |                    | 17  |        |        |
-| 5   | :white_check_mark: | :white_check_mark: | 18  |        |        |
-| 6   | :white_check_mark: | :white_check_mark: | 19  |        |        |
-| 7   |                    |                    | 20  |        |        |
-| 8   | :white_check_mark: | :white_check_mark: | 21  |        |        |
-| 9   | :white_check_mark: | :white_check_mark: | 22  |        |        |
-| 10  | :white_check_mark: |                    | 23  |        |        |
-| 11  | :white_check_mark: |                    | 24  |        |        |
-| 12  | :white_check_mark: | :white_check_mark: | 25  |        |        |
-| 13  | :white_check_mark: |                    |     |        |        |
+| Day | Part 1             | Part 2             | Day | Part 1             | Part 2             |
+| --- | ------------------ | ------------------ | --- | ------------------ | ------------------ |
+| 1   | :white_check_mark: | :white_check_mark: | 14  |                    |                    |
+| 2   | :white_check_mark: | :white_check_mark: | 15  |                    |                    |
+| 3   | :white_check_mark: | :white_check_mark: | 16  | :white_check_mark: | :white_check_mark: |
+| 4   | :white_check_mark: |                    | 17  |                    |                    |
+| 5   | :white_check_mark: | :white_check_mark: | 18  |                    |                    |
+| 6   | :white_check_mark: | :white_check_mark: | 19  |                    |                    |
+| 7   |                    |                    | 20  |                    |                    |
+| 8   | :white_check_mark: | :white_check_mark: | 21  |                    |                    |
+| 9   | :white_check_mark: | :white_check_mark: | 22  |                    |                    |
+| 10  | :white_check_mark: |                    | 23  |                    |                    |
+| 11  | :white_check_mark: |                    | 24  |                    |                    |
+| 12  | :white_check_mark: | :white_check_mark: | 25  |                    |                    |
+| 13  | :white_check_mark: |                    |     |                    |                    |
 
 
 ## Installation
