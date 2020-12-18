@@ -1,24 +1,26 @@
 from aocd.models import Puzzle
-from math import ceil
 
-input = [0, 3, 6]
-final = []
-d = dict()
-i = 0
-last = None
-for idx, x in enumerate(input):
-    d[x] = idx
-    final.append(x)
+input = [9, 3, 1, 0, 8, 4]
 
-for idx in range(len(input), 12):
-    last = final[-1]
-    if last in d.keys():
-        res = idx - d[last] - 1
-        d[last] = res + 1
-    else:
-        d[last] = idx
-        res = 0
-    final.append(res)
-    print(i, ": ", res)
 
-print(final)
+def play(iterations):
+    previous = dict()
+    for idx, num in enumerate(input[:-1]):
+        previous[num] = idx + 1
+    last = input[-1]
+    for i in range(len(input), iterations):
+        if last in previous:
+            next = i - previous[last]
+        else:
+            next = 0
+        previous[last] = i
+        last = next
+    return last
+
+
+def part1():
+    return play(2020)
+
+
+def part2():
+    return play(30000000)
