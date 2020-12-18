@@ -4,19 +4,21 @@ from ast import parse, Constant, BinOp, Expression, Add
 input: str = Puzzle(day=18, year=2020).input_data.splitlines()
 
 
-def simpleEvaluator(exp):
-    if type(exp) == str:
-        exp = exp.replace("+", "PLUS").replace("*", "TIMES")
-        exp = exp.replace("PLUS", "-").replace("TIMES", "+")
-        return simpleEvaluator(parse(exp, mode="eval"))
-    elif type(exp) == Constant:
+def reverseEvaluator(exp):
+    if type(exp) == Constant:
         return exp.value
     elif type(exp) == Expression:
-        return simpleEvaluator(exp.body)
+        return reverseEvaluator(exp.body)
     elif type(exp) == BinOp:
-        left = simpleEvaluator(exp.left)
-        right = simpleEvaluator(exp.right)
+        left = reverseEvaluator(exp.left)
+        right = reverseEvaluator(exp.right)
         return left * right if type(exp.op) == Add else left + right
+
+
+def simpleEvaluator(exp):
+    exp = exp.replace("+", "PLUS").replace("*", "TIMES")
+    exp = exp.replace("PLUS", "-").replace("TIMES", "+")
+    return reverseEvaluator(parse(exp, mode="eval"))
 
 
 def part1():
@@ -26,7 +28,7 @@ def part1():
 def advancedEvaluator(exp):
     exp = exp.replace("+", "PLUS").replace("*", "TIMES")
     exp = exp.replace("PLUS", "*").replace("TIMES", "+")
-    return simpleEvaluator(parse(exp, mode="eval"))
+    return reverseEvaluator(parse(exp, mode="eval"))
 
 
 def part2():
