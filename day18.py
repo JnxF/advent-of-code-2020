@@ -1,5 +1,4 @@
 from aocd.models import Puzzle
-from collections import deque
 from ast import parse, Constant, BinOp, Expression, Add
 
 input: str = Puzzle(day=18, year=2020).input_data.splitlines()
