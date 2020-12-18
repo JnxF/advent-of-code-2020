@@ -1,8 +1,6 @@
 from aocd.models import Puzzle
 import math
 
-# from aocd import submit
-
 input: str = Puzzle(day=3, year=2020).input_data.splitlines()
 n = len(input)
 m = len(input[0])

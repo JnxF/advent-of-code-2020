@@ -1,8 +1,6 @@
 from aocd.models import Puzzle
 from copy import deepcopy
 
-# from aocd import submit
-
 input: str = Puzzle(day=8, year=2020).input_data
 input = input.split("\n")
 input = [instruction.split(" ") for instruction in input]

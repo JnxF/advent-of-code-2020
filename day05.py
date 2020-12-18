@@ -1,7 +1,5 @@
 from aocd.models import Puzzle
 
-# from aocd import submit
-
 inputInBinary: str = (
     Puzzle(day=5, year=2020)
     .input_data.translate("".maketrans("FBLR", "0101"))

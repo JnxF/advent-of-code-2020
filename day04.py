@@ -1,8 +1,5 @@
 from aocd.models import Puzzle
-import math
 import re
-
-# from aocd import submit
 
 input: str = Puzzle(day=4, year=2020).input_data
 

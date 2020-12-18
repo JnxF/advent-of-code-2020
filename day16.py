@@ -1,6 +1,5 @@
 from aocd.models import Puzzle
 from copy import deepcopy
-from math import ceil
 import re
 
 input: str = Puzzle(day=16, year=2020).input_data
