@@ -1,14 +1,132 @@
+# This code is quite horrible
+# Please don't look at it
+
 from aocd.models import Puzzle
 from copy import deepcopy
-from json import dumps
+from math import prod, sqrt
+from collections import defaultdict
 import re
 
 input: str = Puzzle(day=20, year=2020).input_data
+if False:
+    input = """Tile 2311:
+..##.#..#.
+##..#.....
+#...##..#.
+####.#...#
+##.##.###.
+##...#.###
+.#.#.#..##
+..#....#..
+###...#.#.
+..###..###
 
+Tile 1951:
+#.##...##.
+#.####...#
+.....#..##
+#...######
+.##.#....#
+.###.#####
+###.##.##.
+.###....#.
+..#.#..#.#
+#...##.#..
+
+Tile 1171:
+####...##.
+#..##.#..#
+##.#..#.#.
+.###.####.
+..###.####
+.##....##.
+.#...####.
+#.##.####.
+####..#...
+.....##...
+
+Tile 1427:
+###.##.#..
+.#..#.##..
+.#.##.#..#
+#.#.#.##.#
+....#...##
+...##..##.
+...#.#####
+.#.####.#.
+..#..###.#
+..##.#..#.
+
+Tile 1489:
+##.#.#....
+..##...#..
+.##..##...
+..#...#...
+#####...#.
+#..#.#.#.#
+...#.#.#..
+##.#...##.
+..##.##.##
+###.##.#..
+
+Tile 2473:
+#....####.
+#..#.##...
+#.##..#...
+######.#.#
+.#...#.#.#
+.#########
+.###.#..#.
+########.#
+##...##.#.
+..###.#.#.
+
+Tile 2971:
+..#.#....#
+#...###...
+#.#.###...
+##.##..#..
+.#####..##
+.#..####.#
+#..#.#..#.
+..####.###
+..#.#.###.
+...#.#.#.#
+
+Tile 2729:
+...#.#.#.#
+####.#....
+..#.#.....
+....#..#.#
+.##..##.#.
+.#.####...
+####.#.#..
+##.####...
+##..#.##..
+#.##...##.
+
+Tile 3079:
+#.#.#####.
+.#..######
+..#.......
+######....
+####.#..#.
+.#...#.##.
+#.#####.##
+..#.###...
+..#.......
+..#.###..."""
 tiles = input.split("\n\n")
 tiles = [[list(row) for row in tile.splitlines()] for tile in tiles]
 tiles = {int(re.findall("\d+", "".join(tile[0]))[0]): tile[1:] for tile in tiles}
 n = 10
+num = int(sqrt(len(tiles)))
+
+
+def dump(tile):
+    for t in tile:
+        print("".join([str(x) for x in t]))
+    print()
 
 
 def getColumns(tile):
@@ -20,7 +138,7 @@ def leftColumn(tile):
 
 
 def rightColumn(tile):
-    return getColumns(tile)[0]
+    return getColumns(tile)[-1]
 
 
 def topRow(tile):
@@ -57,6 +175,11 @@ def rotate(tile):
     return [row[::-1] for row in transpose(t)]
 
 
+def trimedges(tile):
+    t = deepcopy(tile)
+    return [row[1:-1] for row in t[1:-1]]
+
+
 def mutate(tile):
     return [
         # Nothing
@@ -87,97 +210,237 @@ for k, v in tiles.items():
     mutations[k] = mutate(v)
 
 
-def getSides(tile):
-    l = [topRow(tile), rightColumn(tile), bottomRow(tile), leftColumn(tile)]
-    l += [a[::-1] for a in l]
-    l = ["".join(a) for a in l]
-    return set(l)
+def edges(t):
+    return [
+        "".join(topRow(t)),
+        "".join(rightColumn(t)),
+        "".join(bottomRow(t)),
+        "".join(leftColumn(t)),
+    ]
+
+
+countAvailable = dict()
+collisions = defaultdict(list)
+for n1, tile in tiles.items():
+    e1 = edges(tile)
+    howMany = 0
+    for n2, tile2 in tiles.items():
+        if n1 == n2:
+            continue
+        e2 = edges(tile2)
+        for e in e1:
+            if e in e2 or e[::-1] in e2:
+                howMany += 1
+                collisions[n1] += e
+    countAvailable[n1] = howMany
+
+corners: list[int] = list(
+    {k: v for k, v in sorted(countAvailable.items(), key=lambda item: item[1])}
+)[:4]
 
 
 def part1():
-    # 2161*2753*2927*1201
-    # Upper top left tile is one such that
-    # 1) the TOP ROW doesn't match with any BOTTOM ROW
-    # 2) the FIRST COLUMN doesn't match with any LAST COLUMN
-    for tileName1, tile1 in tiles.items():
-        total = 0
-        for tileName2, tile2 in tiles.items():
-            for tileName3, tile3 in tiles.items():
-                if tileName2 >= tileName3:
-                    continue
-                if len(set([tileName1, tileName2, tileName3])) != 3:
-                    continue
-
-                options1 = mutations[tileName1]
-                options2 = mutations[tileName2]
-                options3 = mutations[tileName3]
-
-                # if len(getSides(tile1).intersection(getSides(tile2))) == 0 and len(getSides(tile1).intersection(getSides(tile3))) == 0:
-                #    continue
-
-                for o1 in options1:
-                    for o2 in options2:
-                        for o3 in options3:
-                            if topRow(o1) == bottomRow(o2) and leftColumn(
-                                o1
-                            ) == rightColumn(o3):
-                                total += 1
-
-                                # print(tileName1, tileName2, tileName3)
-                                # print("o1", dumps([''.join(r) for r in o1], indent=4))
-                                # print("o2", dumps([''.join(r) for r in o2], indent=4))
-                                # print("o3", dumps([''.join(r) for r in o3], indent=4))
-        print(tileName1, total)
+    return prod(corners)
 
 
-corners = [2161, 2753, 2927, 1201]
+# Take one of the corners and put it orientated
+first = corners[0]
+first_tile = tiles[first]
+options = []
 
-# Put 2161 in the left corner
-# accordingly so that it matches with something
-
-# Check all orientations...
-# for o1 in mutations[2161]:
-#     total = 0
-#     # So that given a top and left ones, are impossible to find them
-#     for tileName2, tile2 in tiles.items():
-#         for tileName3, tile3 in tiles.items():
-#             if len(set([2161, tileName2, tileName3])) != 3:
-#                 continue
-
-#             options2 = mutations[tileName2]
-#             options3 = mutations[tileName3]
-
-#             for o2 in options2:
-#                 for o3 in options3:
-#                     if topRow(o1) == bottomRow(o2) and leftColumn(o1) == rightColumn(o3):
-#                         total += 1
-#     print(total)
-
-# Find one such that the left matches with the right of the previous
-
-solution = [[] for _ in range(12)]
-solutionidx = [[] for _ in range(12)]
-used = set()
-
-solution[0].append(flipX(flipY(tiles[2161])))
-solutionidx[0].append(2161)
-used.add(2161)
-
-while True:
-    found = False
-    previous = solution[0][-1]
-    print(solutionidx[0][-1])
-    for tileName, tileValue in tiles.items():
-        if found:
-            break
-        if tileName in used:
+for ori in mutate(first_tile):
+    for name, t in tiles.items():
+        if first == name:
             continue
-        mu = mutations[tileName]
-        for m in mu:
-            if rightColumn(previous) == leftColumn(m):
-                solution[0].append(m)
-                solutionidx[0].append(tileName)
-                used.add(tileName)
-                found = True
+        for ori2 in mutate(t):
+            if leftColumn(ori2) == rightColumn(ori):
+                options.append(ori)
+
+print(len(options))
+
+result = [[] for _ in range(num)]
+resultidx = [[] for _ in range(num)]
+usedidx = set()
+print("Fila INITIAL")
+
+print("\t", "0")
+# For the input, is 8
+if num == 3:
+    result[0].append(options[8])
+else:
+    result[0].append(options[2])
+resultidx[0].append(first)
+
+# Don't use any corner
+for corner in corners:
+    usedidx.add(corner)
+
+# Find the first row
+
+# Find one such that correctly oriented matches the previous
+for j in range(num - 2):
+    previous = result[0][-1]
+    matchingColumn = rightColumn(previous)
+    keepSearching = True
+    for name, t in tiles.items():
+        if not keepSearching:
+            break
+        if name in usedidx:
+            continue
+        for ori in mutate(t):
+            if leftColumn(ori) == matchingColumn:
+                keepSearching = False
+                # Insertar
+                print("\t", j + 1)
+                result[0].append(ori)
+                resultidx[0].append(name)
+                usedidx.add(name)
                 break
-    print(solutionidx[0])
+
+# Find a corner that fits
+previous = result[0][-1]
+matchingColumn = rightColumn(previous)
+keepSearching = True
+for name, t in tiles.items():
+    if not keepSearching:
+        break
+    if name not in corners:
+        continue
+    for ori in mutate(t):
+        if leftColumn(ori) == matchingColumn:
+            keepSearching = False
+            # Insertar
+            print("\t", num - 1)
+            result[0].append(ori)
+            resultidx[0].append(name)
+            usedidx.add(name)
+            break
+
+# add some that match with the top
+for rowNumber in range(1, num - 1):
+    print("Fila", rowNumber)
+    for j in range(num):
+        print("\t", j)
+        goalRow = bottomRow(result[rowNumber - 1][j])
+        for name, t in tiles.items():
+            if name in usedidx:
+                continue
+            for ori in mutate(t):
+                if topRow(ori) == goalRow:
+                    result[rowNumber].append(ori)
+                    resultidx[rowNumber].append(name)
+                    usedidx.add(name)
+                    break
+
+# Last row
+print("Fila LAST")
+# First item
+matchingRow = bottomRow(result[-2][0])
+keepSearching = True
+for name, t in tiles.items():
+    if not keepSearching:
+        break
+    if name not in corners:
+        continue
+    for ori in mutate(t):
+        if topRow(ori) == matchingRow:
+            keepSearching = False
+            # Insertar
+            print("\t", 0)
+            result[-1].append(ori)
+            resultidx[-1].append(name)
+            usedidx.add(name)
+            break
+
+# Rest of items
+for j in range(1, num - 1):
+    goalRow = bottomRow(result[-2][j])
+    for name, t in tiles.items():
+        if name in usedidx:
+            continue
+        for ori in mutate(t):
+            if topRow(ori) == goalRow:
+                print("\t", j)
+                result[-1].append(ori)
+                resultidx[-1].append(name)
+                usedidx.add(name)
+                break
+
+# Last square
+matchingColumn = rightColumn(result[-1][-1])
+matchingRow = bottomRow(result[-2][-1])
+
+keepSearching = True
+for name, t in tiles.items():
+    if not keepSearching:
+        break
+    if name not in corners:
+        continue
+    for ori in mutate(t):
+        if leftColumn(ori) == matchingColumn and topRow(ori) == matchingRow:
+            keepSearching = False
+            # Insertar
+            print("\t", num - 1)
+            result[-1].append(ori)
+            resultidx[-1].append(name)
+            usedidx.add(name)
+            break
+
+
+# Trim edges from each square
+result = [list(map(trimedges, row)) for row in result]
+
+result2 = []
+for megaRow in range(num):
+    for i in range(n - 2):
+        fila = ""
+        for j in range(num):
+            fila += "".join("".join(result[megaRow][j][i]))
+        result2.append(list(fila))
+
+monster = [[], [], []]
+monster[0] = list("                  # ")
+monster[1] = list("#    ##    ##    ###")
+monster[2] = list(" #  #  #  #  #  #   ")
+
+ymons = len(monster)
+xmons = len(monster[0])
+
+
+def larotacion(r):
+    def Transposed(tile):
+        return list("".join(row) for row in zip(*tile))
+
+    def Reversed_tile(tile):
+        return ["".join(reversed(row)) for row in tile]
+
+    def Rotations(tile):
+        ans = [tile]
+        for _ in range(3):
+            ans.append(Reversed_tile(Transposed(ans[-1])))
+        return ans
+
+    def Group(tile):
+        return Rotations(tile) + Rotations(Transposed(tile))
+
+    return Group(r)
+
+
+for ori in larotacion(result2):
+    ori = [list(n) for n in ori]
+    howMany = 0
+    for i in range(len(ori) - ymons + 1):
+        for j in range(len(ori[0]) - xmons + 1):
+            locations = []
+            for mi in range(len(monster)):
+                for mj in range(len(monster[0])):
+                    if monster[mi][mj] == " ":
+                        continue
+                    if ori[i + mi][j + mj] != ".":
+                        locations.append((i + mi, j + mj))
+            if len(locations) >= 15:
+                howMany += 1
+                for a, b in locations:
+                    ori[a][b] = "O"
+
+    print(howMany, sum(["".join(row).count("#") for row in ori]))
