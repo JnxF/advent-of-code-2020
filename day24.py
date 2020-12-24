@@ -15,13 +15,11 @@ blacks = set()
 for line in input:
     res = []
     while line != "":
-        for dir in directions.keys():
-            if line.startswith(dir):
-                line = line[len(dir) :]
-                res.append(dir)
-    p = 0 + 0j
-    for e in res:
-        p += directions[e]
+        for dir_name, dir_value in directions.items():
+            if line.startswith(dir_name):
+                line = line[len(dir_name) :]
+                res.append(dir_value)
+    p = sum(res)
     if p not in blacks:
         blacks.add(p)
     else:
@@ -51,8 +49,8 @@ def part2():
                 newblacks.add(tile)
         # Any white tile with exactly 2 black tiles immediately
         # adjacent to it is flipped to black.
-        for tile in blacks:
-            for adj in surroundings(tile):
+        for t in blacks:
+            for adj in surroundings(t):
                 if adj not in blacks and num_surrounding_blacks(adj, blacks) == 2:
                     newblacks.add(adj)
         blacks = newblacks
