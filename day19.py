@@ -2,6 +2,7 @@ from aocd.models import Puzzle
 import re
 
 input: str = Puzzle(day=19, year=2020).input_data
+
 rules, words = input.split("\n\n")
 
 
@@ -34,3 +35,35 @@ def rule2regex(rule_number):
 def part1():
     reg = "^" + rule2regex("0") + "$"
     return sum([bool(re.match(reg, word)) for word in words])
+
+
+# 0 -> 42+ 42^n 31^n, with n >= 1
+def testString2(s):
+    r42 = "^" + rule2regex("42")
+    r31 = "^" + rule2regex("31")
+
+    howMany42 = 0
+    howMany31 = 0
+    while True:
+        tryMatch = re.match(r42, s)
+        if tryMatch is not None:
+            idx = tryMatch.span()[1]
+            s = s[idx:]
+            howMany42 += 1
+        else:
+            break
+
+    while True:
+        tryMatch = re.match(r31, s)
+        if tryMatch is not None:
+            idx = tryMatch.span()[1]
+            s = s[idx:]
+            howMany31 += 1
+        else:
+            break
+
+    return howMany31 >= 1 and howMany42 - howMany31 >= 1 and s == ""
+
+
+def part2():
+    return sum([testString2(word) for word in words])
