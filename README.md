@@ -19,7 +19,7 @@
 | 7   | :white_check_mark: | :white_check_mark: | 20  | :white_check_mark: | :white_check_mark: |
 | 8   | :white_check_mark: | :white_check_mark: | 21  | :white_check_mark: | :white_check_mark: |
 | 9   | :white_check_mark: | :white_check_mark: | 22  | :white_check_mark: | :white_check_mark: |
-| 10  | :white_check_mark: |                    | 23  | :white_check_mark: | :white_check_mark: |
+| 10  | :white_check_mark: | :white_check_mark: | 23  | :white_check_mark: | :white_check_mark: |
 | 11  | :white_check_mark: |                    | 24  |                    |                    |
 | 12  | :white_check_mark: | :white_check_mark: | 25  |                    |                    |
 | 13  | :white_check_mark: | :white_check_mark: |     |                    |                    |

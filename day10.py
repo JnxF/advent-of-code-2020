@@ -19,4 +19,7 @@ def part1():
 
 
 def part2():
-    pass
+    res = [1]
+    for i in range(1, max(input) + 1):
+        res.append(sum(res[-3:]) if i in input else 0)
+    return res[-1]
