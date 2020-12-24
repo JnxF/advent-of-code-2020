@@ -57,7 +57,7 @@ def part2():
         else:
             address, value = findall(r"\d+", line)
             for submask in normalizeMask(mask):
-                mem[applyMask(int(address), submask)] = applyMask(int(value), mask)
+                mem[applyMask(int(address), submask)] = int(value)
                 print(applyMask(int(value), mask))
 
     print(sum(mem.values()))
